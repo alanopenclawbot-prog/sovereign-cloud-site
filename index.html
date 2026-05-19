@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Cloud — Own Your Infrastructure</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #141414;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --accent: #00c896;
+            --accent-hover: #00e6aa;
+            --border: #222;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0,200,150,0.08) 0%, transparent 60%);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero h1 span { color: var(--accent); }
+
+        .hero p.tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .hero p.sub {
+            font-size: 1rem;
+            color: var(--text-dim);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.9rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+        .local-badge {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* Services */
+        .services {
+            padding: 4rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .services h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .services p.intro {
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover { border-color: var(--accent); }
+
+        .card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .card .includes {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .card .includes li {
+            list-style: none;
+            padding: 0.2rem 0;
+        }
+
+        .card .includes li::before {
+            content: "→ ";
+            color: var(--accent);
+        }
+
+        /* About / Why */
+        .why {
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .why h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .why p {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .values {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .value {
+            flex: 1 1 200px;
+            max-width: 250px;
+        }
+
+        .value h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .value p {
+            font-size: 0.9rem;
+        }
+
+        /* Free offer */
+        .free-offer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 100%, rgba(0,200,150,0.06) 0%, transparent 60%);
+        }
+
+        .free-offer h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .free-offer p {
+            color: var(--text-dim);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact p {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .contact form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .contact textarea { min-height: 120px; resize: vertical; }
+
+        .contact button {
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .contact button:hover { background: var(--accent-hover); }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>Own Your <span>Infrastructure</span></h1>
+        <p class="tagline">Self-hosted cloud services for people and businesses who value privacy.</p>
+        <p class="sub">Stop renting your data back from big tech. Run your own AI, store your own files, control your own systems.</p>
+        <a href="#contact" class="cta">Get Started — Free</a>
+        <div class="local-badge">📍 Vancouver-based • In-person setup</div>
+    </section>
+
+    <section class="services" id="services">
+        <h2>What We Set Up</h2>
+        <p class="intro">Self-hosted alternatives to the cloud services you're paying for. Your hardware, your data, your control.</p>
+
+        <div class="grid">
+            <div class="card">
+                <div class="icon">🤖</div>
+                <h3>Local AI</h3>
+                <p>Private AI assistant running on your own machine. No data sent to OpenAI, Google, or anyone else.</p>
+                <ul class="includes">
+                    <li>Ollama + Open WebUI</li>
+                    <li>Pre-configured AI models</li>
+                    <li>Training on daily use</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="icon">☁️</div>
+                <h3>Personal Cloud</h3>
+                <p>Replace Google Drive, Calendar, and Docs with your own private cloud you actually own.</p>
+                <ul class="includes">
+                    <li>Nextcloud (files, calendar, contacts)</li>
+                    <li>Collaborative document editing</li>
+                    <li>Access from anywhere</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎬</div>
+                <h3>Media Server</h3>
+                <p>Stream your own movies, TV, and music. No subscriptions, no tracking, no content disappearing.</p>
+                <ul class="includes">
+                    <li>Jellyfin (or Plex)</li>
+                    <li>Music streaming</li>
+                    <li>Photo management</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="icon">🏠</div>
+                <h3>Smart Home</h3>
+                <p>Home automation without sending your data to Amazon or Google. Full local control.</p>
+                <ul class="includes">
+                    <li>Home Assistant</li>
+                    <li>Matter device support</li>
+                    <li>Camera management (Frigate)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Monitoring & Dashboards</h3>
+                <p>Know what's happening with your systems. Uptime monitoring, alerts, and beautiful dashboards.</p>
+                <ul class="includes">
+                    <li>Grafana dashboards</li>
+                    <li>Uptime monitoring & alerts</li>
+                    <li>System health tracking</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="icon">🔐</div>
+                <h3>Security & Privacy</h3>
+                <p>Secure your infrastructure with proper networking, VPN access, and privacy-first configuration.</p>
+                <ul class="includes">
+                    <li>Tailscale / WireGuard VPN</li>
+                    <li>Ad blocking (Pi-hole)</li>
+                    <li>Password management (Vaultwarden)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="why">
+        <h2>Why Self-Host?</h2>
+        <p>Every time you use a cloud service, you're renting access to your own data. They can change their terms, raise their prices, or shut down entirely. Self-hosting means you own it — forever.</p>
+
+        <div class="values">
+            <div class="value">
+                <h4>🔒 Privacy</h4>
+                <p>Your data never leaves your hardware. No scanning, no profiling, no ads.</p>
+            </div>
+            <div class="value">
+                <h4>💰 No Subscriptions</h4>
+                <p>One-time setup cost. No monthly fees. No price hikes. You own it.</p>
+            </div>
+            <div class="value">
+                <h4>🛡️ Control</h4>
+                <p>No terms of service changes. No account suspensions. Your rules.</p>
+            </div>
+            <div class="value">
+                <h4>⚡ Performance</h4>
+                <p>Local means fast. No latency, no bandwidth limits, no throttling.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="free-offer">
+        <h2>Free Setup for Early Adopters</h2>
+        <p>We're offering free setup for the first few customers while we learn what people need most. No catch — you provide the hardware, we make it work.</p>
+        <a href="#contact" class="cta">Claim Your Free Setup</a>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <p>Interested? Have questions? Drop us a message and we'll get back to you.</p>
+        <form action="#" method="POST">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+            <input type="text" name="business" placeholder="Business name (optional)">
+            <textarea name="message" placeholder="What are you interested in setting up?"></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>Sovereign Cloud — Vancouver, BC • Your data, your hardware, your control.</p>
+    </footer>
+
+</body>
+</html>
